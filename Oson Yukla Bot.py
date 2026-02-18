@@ -7,7 +7,7 @@ from aiogram import Bot, Dispatcher, executor, types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import yt_dlp
 
-# Bot tokenini Environment Variable orqali olish (xavfsizroq)
+# Bot tokenini Environment Variable orqali olish
 API_TOKEN = os.environ.get('API_TOKEN', '8530462813:AAFxPrAjZyDG6Fgv_JMqy0XwMgnCKQp1Zv4')
 
 logging.basicConfig(level=logging.INFO)
@@ -38,7 +38,7 @@ def download_media(url):
         'noplaylist': True,
         'quiet': True,
         'no_warnings': True,
-        'source_address': '0.0.0.0', 
+        'source_address': '0.0.0.0', # IPv6 muammosini oldini olish uchun
         'http_headers': {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         }
@@ -48,7 +48,7 @@ def download_media(url):
             info = ydl.extract_info(url, download=True)
             return ydl.prepare_filename(info)
     except Exception as e:
-        logging.error(f"Download Error: {e}")
+        logging.error(f"Yuklash xatosi: {e}")
         return None
 
 def search_music(query):
@@ -75,7 +75,7 @@ def search_music(query):
                 filename = filename.rsplit('.', 1)[0] + '.mp3'
             return filename
     except Exception as e:
-        logging.error(f"Music Search Error: {e}")
+        logging.error(f"Musiqa qidiruv xatosi: {e}")
         return None
 
 def get_inline_keyboard():
@@ -110,7 +110,7 @@ async def handle_all_messages(message: types.Message):
                 await message.answer_audio(audio=audio, caption=caption_text, reply_markup=keyboard, parse_mode="HTML")
             os.remove(file_path)
         else:
-            await message.answer("❌ Topilmadi.")
+            await message.answer("❌ Bunday qo'shiq topilmadi.")
     await waiting_msg.delete()
 
 if __name__ == '__main__':
