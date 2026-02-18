@@ -1,24 +1,22 @@
-# Python-ning yengil versiyasidan foydalanamiz
 FROM python:3.10-slim
 
-# Tizim yangilanishlari va FFmpeg-ni o'rnatish
+# Tizimga FFmpeg o'rnatish (video/audio formatlash uchun shart)
 RUN apt-get update && \
     apt-get install -y ffmpeg && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Ishchi papkani yaratish
 WORKDIR /app
 
-# Kutubxonalar ro'yxatini nusxalash va o'rnatish
+# Kutubxonalarni o'rnatish
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Barcha kodlarni konteynerga nusxalash
+# Kodlarni nusxalash
 COPY . .
 
-# Render beradigan PORT-ni ochish
+# Portni ochish
 EXPOSE 8080
 
-# Oxirgi qatorni shunday yozing:
+# Botni ishga tushirish (Fayl nomi probel bilan bo'lsa qo'shtirnoq shart)
 CMD ["python", "Oson Yukla Bot.py"]
