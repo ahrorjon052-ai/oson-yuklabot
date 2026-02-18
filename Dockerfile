@@ -15,5 +15,4 @@ COPY . .
 
 EXPOSE 8080
 
-# Fayl nomida probel bo'lgani uchun qo'shtirnoq ichida:
 CMD ["python", "Oson Yukla Bot.py"]
